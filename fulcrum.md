@@ -118,6 +118,8 @@ zram-swap is a compressed swap in memory and on disk and is necessary for the pr
   /dev/zram0                             partition            102396         0        5
   ```
 
+* Check the status of zram-swap service
+
   ```sh
   $ sudo systemctl status zram-swap
   ```
@@ -491,7 +493,7 @@ If the database gets corrupted and you don't have a backup, you will have to res
 
 Ensure you are logged with user "admin"
 
-* Stop, disable and delete service
+* Stop, disable and delete the service
 
   ```sh
   $ sudo systemctl stop fulcrum
