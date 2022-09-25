@@ -133,6 +133,7 @@ zram-swap is a compressed swap in memory and on disk and is necessary for the pr
   Process: 287452 ExecStart=/usr/local/sbin/zram-swap.sh start (code=exited, status=0/SUCCESS)
   Main PID: 287452 (code=exited, status=0/SUCCESS)
   CPU: 191ms
+  
   Aug 08 00:51:51 node systemd[1]: Starting zram swap service...
   Aug 08 00:51:51 node zram-swap.sh[287471]: Setting up swapspace version 1, size = 4.6 GiB (4972199936 bytes)
   ...
@@ -264,23 +265,28 @@ Now that Fulcrum is installed, we need to configure it to run automatically on s
   ```sh
   # RaspiBolt: fulcrum configuration 
   # /data/fulcrum/fulcrum.conf
+  
   # Bitcoin Core settings
   bitcoind = 127.0.0.1:8332
   rpccookie = /home/bitcoin/.bitcoin/.cookie
+  
   # Fulcrum server settings
   datadir = /data/fulcrum/fulcrum_db
   cert = /data/fulcrum/cert.pem
   key = /data/fulcrum/key.pem
   ssl = 0.0.0.0:50002
   peering = false
+  
   # RPi optimizations
   bitcoind_timeout = 600
   bitcoind_clients = 1
   worker_threads = 1
   deb_mem = 1024.0
+  
   # 4GB RAM (default)
   db_max_open_files = 200
   fast-sync = 1024
+  
   # 8GB RAM (comment the last two lines and uncomment the next)
   #db_max_open_files = 400
   #fast-sync = 2048
@@ -305,12 +311,14 @@ Fulcrum needs to start automatically on system boot.
   ```sh
   # RaspiBolt: systemd unit for Fulcrum
   # /etc/systemd/system/fulcrum.service
+  
   [Unit]
   Description=Fulcrum
   Wants=bitcoind.service
   After=bitcoind.service
   StartLimitBurst=2
   StartLimitIntervalSec=20
+  
   [Service]
   ExecStart=/usr/local/bin/Fulcrum /data/fulcrum/fulcrum.conf
   KillSignal=SIGINT
@@ -319,6 +327,7 @@ Fulcrum needs to start automatically on system boot.
   TimeoutStopSec=300
   RestartSec=30
   Restart=on-failure
+  
   [Install]
   WantedBy=multi-user.target
   ```
